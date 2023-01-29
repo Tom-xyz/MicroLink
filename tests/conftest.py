@@ -1,32 +1,24 @@
 # conftest.py
-import unittest
-from unittest.mock import MagicMock, Mock, AsyncMock, patch
+import os
+from unittest.mock import MagicMock
 import pytest
 from fakeredis.aioredis import FakeRedis
-from fastapi.testclient import TestClient
-import asyncio
-
-
-
-event_loop = asyncio.get_event_loop()
-if event_loop is None:
-    event_loop = asyncio.new_event_loop()
-patch('asyncio.get_event_loop', event_loop)
-
 
 @pytest.fixture
-def mock_redis(mocker):
-    fake_redis = FakeRedis.from_url
-    mocker.patch("redis.asyncio.from_url", fake_redis)
-
-
-@pytest.fixture()
-def app(mock_redis):
-    from src.views import app
-
-    return app
-
+def fake_redis(monkeypatch):
+    fake_redis = FakeRedis()
+    monkeypatch.setattr("src.api.views.redis_client", fake_redis)
+    return fake_redis
 
 @pytest.fixture
-def client(app):
-    return TestClient(app)
+def hash_patch(monkeypatch):
+    hash_mock = MagicMock()
+    hash_digest_mock = MagicMock()
+    hash_digest_mock.return_value = "12345678"
+    hash_mock.return_value.hexdigest = hash_digest_mock
+    monkeypatch.setattr("src.api.views.hashlib.sha1", hash_mock)
+    return hash_mock
+
+@pytest.fixture
+def domain_patch(monkeypatch):
+    monkeypatch.setattr("src.config.Config.DOMAIN_NAME", "http://localhost:8000")
