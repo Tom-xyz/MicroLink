@@ -1,0 +1,14 @@
+# Use a Python 3.8 base image
+FROM python:3.8-alpine
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the contents of the current directory into the image
+COPY . .
+
+# Install required packages
+RUN pip install -r requirements.txt
+
+# Command to run the API
+CMD ["python", "run_api.py"]
