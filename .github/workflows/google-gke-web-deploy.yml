@@ -22,7 +22,7 @@ env:
   GKE_CLUSTER: microlink
   GKE_ZONE: us-east4
   DEPLOYMENT_NAME: gke-microlink-web
-  REPOSITORY: us-east4-docker.pkg.dev/microlink-376220/microlink-web
+  REPOSITORY: microlink-web
   IMAGE: docker-microlink-web
 
 jobs:
