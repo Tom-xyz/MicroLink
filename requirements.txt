@@ -7,3 +7,4 @@ httpx==0.23.*
 pytest-mock==3.10.*
 fakeredis==2.5.*
 pytest-asyncio==0.20.*
+uvicorn==0.20.*
