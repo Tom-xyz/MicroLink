@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microlink-web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microlink-web
+  template:
+    metadata:
+      labels:
+        app: microlink-web
+    spec:
+      containers:
+      - name: microlink-web
+        image: cynx/microlink_web:latest
+        ports:
+        - containerPort: 80
