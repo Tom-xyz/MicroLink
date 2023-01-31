@@ -21,9 +21,9 @@ env:
   GAR_LOCATION: us-east4
   GKE_CLUSTER: microlink
   GKE_ZONE: us-east4
-  DEPLOYMENT_NAME: microlink-web-deployment
-  REPOSITORY: microlink-web
-  IMAGE: docker-microlink-web
+  DEPLOYMENT_NAME: microlink-api-deployment
+  REPOSITORY: microlink-api
+  IMAGE: docker-microlink-api
 
 jobs:
   setup-build-publish-deploy:
@@ -68,7 +68,7 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          -t docker-microlink-web -f Dockerfile_web \
+          -t docker-microlink-api -f Dockerfile_api \
           --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
@@ -86,7 +86,7 @@ jobs:
     - name: Deploy
       run: |-
         # replacing the image name in the k8s template
-        ./kustomize edit /k8s/web-service set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
-        ./kustomize build k8s/web-service | kubectl apply -f -
+        ./kustomize edit /k8s/api-service set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
+        ./kustomize build k8s/api-service | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
