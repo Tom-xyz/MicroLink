@@ -20,7 +20,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GAR_LOCATION: us-east4
   GKE_CLUSTER: microlink
-  GKE_ZONE: us-east4-a
+  GKE_ZONE: us-east4
   DEPLOYMENT_NAME: gke-microlink-web
   REPOSITORY: us-east4-docker.pkg.dev/microlink-376220/microlink-web
   IMAGE: docker-microlink-web
