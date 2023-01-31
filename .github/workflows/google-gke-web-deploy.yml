@@ -21,7 +21,7 @@ env:
   GAR_LOCATION: us-east4
   GKE_CLUSTER: microlink
   GKE_ZONE: us-east4
-  DEPLOYMENT_NAME: gke-microlink-web
+  DEPLOYMENT_NAME: microlink-web-deployment
   REPOSITORY: microlink-web
   IMAGE: docker-microlink-web
 
