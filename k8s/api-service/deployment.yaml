@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: microlink-api
-        image: cynx/microlink_api:latest
+        image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG
         ports:
         - containerPort: 80

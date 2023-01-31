@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: microlink-web
-        image: us-east4-docker.pkg.dev/microlink-376220/microlink-web/docker-microlink-web
+        image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG
         ports:
         - containerPort: 80
