@@ -8,8 +8,7 @@ class Config:
         HOST = "http://localhost"
     else:
         # TODO: Use a real domain name
-        # HOST = "http://microlink.ly"
-        # Resolving the domain name to an IP address for now
-        HOST = resolve_service_ip("microlink-web", "default")
+        # Resolving to the ingress external IP address for now
+        HOST = resolve_service_ip("web-and-api-ingress", "default")
 
     REDIS_URL = "redis://redis-service:6379"
