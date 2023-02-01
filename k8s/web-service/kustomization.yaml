@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+- cluster-role.yaml
+- cluster-role-binding.yaml
