@@ -39,3 +39,8 @@ async def resolve_short_url(short_url: str):
             return {"long_url": long_url.decode()}
         else:
             return {"error": "Short URL not found"}
+
+
+@router.get("/")
+async def health_check():
+    return {"status": "ok"}

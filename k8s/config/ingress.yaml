@@ -4,30 +4,7 @@ metadata:
   name: web-and-api-ingress
 spec:
   rules:
-  - https:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: microlink-web
-            port:
-              name: https
-      - path: /shorten_url
-        pathType: Prefix
-        backend:
-          service:
-            name: microlink-api
-            port:
-              name: https
-      - path: /*
-        pathType: Prefix
-        backend:
-          service:
-            name: microlink-api
-            port:
-              name: https
-  - http:
+  - backend:
       paths:
       - path: /
         pathType: Prefix
