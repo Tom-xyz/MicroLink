@@ -12,4 +12,5 @@ env = Environment(loader=FileSystemLoader("src/web/templates"))
 def index():
     template = env.get_template("index.html")
     api_host = read_load_balancer_ip("microlink-api", "default")
+    print("Got API Host: " + api_host)
     return HTMLResponse(template.render(api_host=api_host))

@@ -29,7 +29,6 @@
               onclick="submitForm('{{ api_host }}')"
             >
               Shorten URL
-              <i class="material-icons right">send</i>
             </button>
           </div>
         </form>
@@ -43,7 +42,7 @@
     <script>
       async function submitForm(apiHost) {
         const input = document.getElementById("url-input").value;
-        const response = await fetch(apiHost + "/api/shorten", {
+        const response = await fetch(apiHost + "/shorten_url", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: input }),
