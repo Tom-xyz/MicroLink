@@ -26,7 +26,7 @@
             <button
               class="btn waves-effect waves-light"
               type="button"
-              onclick="submitForm('{{ api_host }}')"
+              onclick="submitForm('{{ host }}')"
             >
               Shorten URL
             </button>
@@ -40,9 +40,9 @@
       </div>
     </div>
     <script>
-      async function submitForm(apiHost) {
+      async function submitForm(host) {
         const input = document.getElementById("url-input").value;
-        const url = 'http://' + apiHost + "/shorten_url?long_url=" + input
+        const url = 'http://' + host + "/shorten_url?long_url=" + input
         const response = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" }

@@ -1,6 +1,8 @@
 # MicroLink
 URL link shortner service
 
+
+
 # Problem
 Context: At OMITTED, we have a semi-realtime environment with thousands of changes
 happening concurrently.
@@ -51,6 +53,37 @@ For the deployment to a Kubernetes cluster, I would recommend using a GitOps app
 
 Note: The deployment to a live environment would require a proper domain name and a valid SSL certificate for secure communication. I have skipped this step due to time constraints.
 
+Closing note on scaling:
+An IngressController is used as an entry point to the Kubernetes cluster. This IP/Domain will be used to route requests to the appropriate service (api, web). This is important as the web service is not used to resolve and redirect a shortened url, as this would put additional strain on that service and break the single responsibility principle. API service's resolve_url function will take care of that responsible and issue an HTTP redirect to the client with the resolved long url.
+
+# First time project setup
+
+1. Create virtual py env
+```
+pyenv install 3.11.0b5
+pyenv local 3.11.0b5
+```
+
+2. Running pytest
+```
+export APP_ENV=dev
+pytest .
+```
+
+3. Build images and deploy to local Minikube Docker
+```
+docker build -t docker_image_api -f Dockerfile_api .;
+docker tag docker_image_api:latest <DOCKER-HUB-USER>/microlink_api:latest;
+docker push cynx/microlink_api:latest
+
+docker build -t docker_image_web -f Dockerfile_web .;
+docker tag docker_image_api:latest <DOCKER-HUB-USER>/microlink_web:latest;
+docker push cynx/microlink_web:latest
+
+kubectl apply -f k8s/;
+kubectl get pods;
+```
+
 # TODO
 * SSL Certificate and HTTPS enforcement
 * Domain name for Microlink
@@ -58,3 +91,5 @@ Note: The deployment to a live environment would require a proper domain name an
 * Experiment with an NginxIngressController to improve routing management
 * Introduce FastAPI Models instead of using Dict for request/response
 * Additional unit tests + pytest Github action
+* Put 'src' on path remove the need to ref imports by 'src.*'
+* Clean-up TODO comments in code related to these items

@@ -18,7 +18,3 @@ def hash_patch(monkeypatch):
     hash_mock.return_value.hexdigest = hash_digest_mock
     monkeypatch.setattr("src.api.views.hashlib.sha1", hash_mock)
     return hash_mock
-
-@pytest.fixture
-def domain_patch(monkeypatch):
-    monkeypatch.setattr("src.config.Config.DOMAIN_NAME", "http://localhost:8000")

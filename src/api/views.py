@@ -22,7 +22,7 @@ async def shorten_url(long_url: str):
             await redis_client.set(hash, long_url)
 
         # Construct the shortened URL
-        short_url = f"{Config.DOMAIN_NAME}/{hash}"
+        short_url = f"{Config.HOST}/{hash}"
         return {"short_url": short_url}
 
 
