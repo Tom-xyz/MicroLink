@@ -2,7 +2,7 @@ from fastapi import APIRouter
 import redis.asyncio as redis
 import hashlib
 from src.config import Config
-from starlette.responses import Redirect
+from starlette.responses import RedirectResponse
 
 router = APIRouter()
 redis_client = redis.from_url(Config.REDIS_URL)
@@ -37,7 +37,7 @@ async def resolve_short_url(short_url: str):
         if await redis_client.exists(hash):
             # Retrieve the corresponding long URL from Redis and redirect the client
             long_url = await redis_client.get(hash)
-            return Redirect(long_url)
+            return RedirectResponse(long_url)
         else:
             return {"error": "Short URL not found"}
 
