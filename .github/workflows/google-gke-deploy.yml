@@ -119,3 +119,9 @@ jobs:
         kubectl apply -f k8s/redis
         kubectl rollout status deployment/redis-deployment
         kubectl get services -o wide
+    # Deploy the cluster config cluster to the GKE cluster
+    - name: Deploy cluster config
+      run: |-
+        kubectl apply -f k8s/config
+        kubectl rollout status deployment/redis-deployment
+        kubectl get services -o wide
