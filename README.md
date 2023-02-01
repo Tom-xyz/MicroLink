@@ -12,9 +12,11 @@ API:
 * POST http://34.111.237.154/shorten_url
 * GET http://34.111.237.154/[HASH-TO-RESOLVE]
 
-Example shorten URL POST:
+Example shorten URL:
 ```
+curl 'http://34.111.237.154/shorten_url?long_url=google.com' -X POST -H 'Cache-Control: no-cache' -H 'Content-Length: 0'
 
+{"short_url":"34.111.237.154/baea954b"}
 ```
 
 # Problem
