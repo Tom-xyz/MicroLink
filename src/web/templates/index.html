@@ -42,10 +42,9 @@
     <script>
       async function submitForm(apiHost) {
         const input = document.getElementById("url-input").value;
-        const response = await fetch("http://" + apiHost + "/shorten_url", {
+        const response = await fetch(apiHost + "/shorten_url?long_url=" + input, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: input }),
+          headers: { "Content-Type": "application/json" }
         });
         const data = await response.json();
         document.getElementById(
