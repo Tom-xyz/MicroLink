@@ -1,7 +1,21 @@
 # MicroLink
 URL link shortner service
 
+This is my attempt at the assignment. I didn't have any knowledge of GCP or Kubernetes prior to this. I encorporated known patterns that I have used in previous large scale projects to ensure this solution can scale to millions of concurrent requests. 
 
+There is more work to do but only so much time (see TODO). For instance the autoscaling rules are not configured. The project is also coupled in some parts to GCP which is not necessary. 
+
+WEB UI:
+* GET http://34.111.237.154/home
+
+API: 
+* POST http://34.111.237.154/shorten_url
+* GET http://34.111.237.154/[HASH-TO-RESOLVE]
+
+Example shorten URL POST:
+```
+
+```
 
 # Problem
 Context: At OMITTED, we have a semi-realtime environment with thousands of changes
@@ -104,3 +118,5 @@ kubectl get pods;
 * Use the OpenAPI spec in the FastAPI views.py (todo-url-shortener-api.yaml)
 * Setup a deep health check which runs as part of the deployment.
 * Clean-up TODO comments in code related to these items
+* VPC setup and network partitioning
+* Better security controls (least privilege)
