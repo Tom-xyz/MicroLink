@@ -5,10 +5,7 @@ FROM python:3.8-alpine
 WORKDIR /app
 
 # Set API port
-EXPOSE 80
-
-# TODO: Enable when TLS is setup
-# EXPOSE 443
+EXPOSE 443
 
 # Set env stage
 ENV APP_STAGE=prod
