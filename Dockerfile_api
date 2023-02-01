@@ -8,7 +8,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Set env stage
-ENV APP_STAGE=dev
+ENV APP_STAGE=prod
 
 # Copy the contents of the current directory into the image
 COPY . .
