@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /home
         pathType: Prefix
         backend:
           service:

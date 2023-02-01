@@ -7,7 +7,11 @@ router = APIRouter()
 env = Environment(loader=FileSystemLoader("src/web/templates"))
 
 
-@router.get("/")
+@router.get("/home")
 def index():
     template = env.get_template("index.html")
     return HTMLResponse(template.render(host=Config.HOST))
+
+@router.get("/")
+def health_check():
+    return {"status": "ok"}
