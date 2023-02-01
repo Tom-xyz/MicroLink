@@ -12,8 +12,9 @@ def index():
     api_host = read_api_load_balancer_ip()
     return HTMLResponse(template.render(api_host=api_host))
 
-# TODO: Replace this with a FQDN lookup
+# TODO: Replace this with a Google endpoint FQDN lookup
+# Example: https://api.<project-id>.endpoints.cloud.google.com
 def read_api_load_balancer_ip():
-    response = requests.get("http://api")
+    response = requests.get("http://microlink-api")
     api_host = response.headers['host']
     return api_host
