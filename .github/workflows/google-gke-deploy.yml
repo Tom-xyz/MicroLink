@@ -95,6 +95,11 @@ jobs:
       run: |-
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
+    # Deploy the cluster config cluster to the GKE cluster
+    - name: Deploy cluster config
+      run: |-
+        kubectl apply -f k8s/config
+        kubectl get services -o wide
     # Deploy the WEB Docker image to the GKE cluster
     - name: Deploy WEB
       run: |-
@@ -118,9 +123,4 @@ jobs:
       run: |-
         kubectl apply -f k8s/redis
         kubectl rollout status deployment/redis-deployment
-        kubectl get services -o wide
-    # Deploy the cluster config cluster to the GKE cluster
-    - name: Deploy cluster config
-      run: |-
-        kubectl apply -f k8s/config
         kubectl get services -o wide
