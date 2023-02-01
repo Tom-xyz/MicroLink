@@ -102,7 +102,7 @@ jobs:
         cd k8s/api-service
         ../../kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_WEB/IMAGE_WEB:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_WEB/$IMAGE_WEB:$GITHUB_SHA
         ../../kustomize build | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl rollout status deployment/$DEPLOYMENT_NAME_WEB
         kubectl get services -o wide
     # Deploy the API Docker image to the GKE cluster
     - name: Deploy API
@@ -111,5 +111,5 @@ jobs:
         cd k8s/api-service
         ../../kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_API/IMAGE_API:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_API/$IMAGE_API:$GITHUB_SHA
         ../../kustomize build | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl rollout status deployment/$DEPLOYMENT_NAME_API
         kubectl get services -o wide
