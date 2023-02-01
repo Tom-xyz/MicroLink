@@ -50,3 +50,12 @@ To fulfill the requirements of this project, I would recommend using FastAPI as 
 For the deployment to a Kubernetes cluster, I would recommend using a GitOps approach with tools such as Argo CD or Flux CD to automate the deployment process and ensure consistency across environments. For this project I went with a simpler approach and used Github actions to GKE cluster. The deployment process would involve creating and applying Kubernetes manifests for the various components, such as the API, web server, Redis, load balancer, and metrics/logging components.
 
 Note: The deployment to a live environment would require a proper domain name and a valid SSL certificate for secure communication. I have skipped this step due to time constraints.
+
+# TODO
+* SSL Certificate and HTTPS enforcement
+* Domain name for Microlink
+* Prometheus and Grafana created and deployed
+* Experiment with an NginxIngressController to simplify routing management
+* Introduce FastAPI Models instead of using Dict request/response objects
+* Additional unit tests + pytest Github action
+* 
