@@ -20,7 +20,7 @@ spec:
             name: microlink-api
             port:
               name: https
-      - path: /{short_url_hash}
+      - path: /*
         pathType: Prefix
         backend:
           service:
