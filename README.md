@@ -70,15 +70,18 @@ export APP_ENV=dev
 pytest .
 ```
 
-3. Build images and deploy to local Minikube Docker
+3. Build images and deploy to Kubernetes
+
+Note: The current K8S files expect the image to be deployed to GKE, replace 'image' in those files with the images created here.
+
 ```
 docker build -t docker_image_api -f Dockerfile_api .;
 docker tag docker_image_api:latest <DOCKER-HUB-USER>/microlink_api:latest;
-docker push cynx/microlink_api:latest
+docker push <DOCKER-HUB-USER>/microlink_api:latest
 
 docker build -t docker_image_web -f Dockerfile_web .;
 docker tag docker_image_api:latest <DOCKER-HUB-USER>/microlink_web:latest;
-docker push cynx/microlink_web:latest
+docker push <DOCKER-HUB-USER>/microlink_web:latest
 
 kubectl apply -f k8s/;
 kubectl get pods;
