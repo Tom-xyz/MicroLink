@@ -119,4 +119,5 @@ kubectl get pods;
 * Setup a deep health check which runs as part of the deployment.
 * Clean-up TODO comments in code related to these items
 * VPC setup and network partitioning
-* Better security controls (least privilege)
+* Handle case when client provides url without http or https prefix.
+* Impl strict Kubernetes security controls (least privilege)
