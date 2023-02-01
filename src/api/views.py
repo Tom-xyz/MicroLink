@@ -37,7 +37,7 @@ async def resolve_short_url(short_url: str):
         if await redis_client.exists(hash):
             # Retrieve the corresponding long URL from Redis and redirect the client
             long_url = await redis_client.get(hash)
-            return RedirectResponse(long_url)
+            return RedirectResponse(url=long_url)
         else:
             return {"error": "Short URL not found"}
 

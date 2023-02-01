@@ -50,7 +50,7 @@
         const data = await response.json();
         document.getElementById(
           "short-url"
-        ).innerHTML = `<h5>Short URL: ${data.short_url}</h5>`;
+        ).innerHTML = `<h5>Short URL: http://${data.short_url}</h5>`;
       }
     </script>
   </body>
