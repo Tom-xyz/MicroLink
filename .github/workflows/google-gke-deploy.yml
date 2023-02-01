@@ -10,7 +10,7 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke-kustomize
 
-name: Build and Deploy the API to GKE cluster
+name: Build and Deploy the API and Web services to GKE cluster
 
 on:
   push:
@@ -21,9 +21,12 @@ env:
   GAR_LOCATION: us-east4
   GKE_CLUSTER: microlink
   GKE_ZONE: us-east4
-  DEPLOYMENT_NAME: microlink-api-deployment
-  REPOSITORY: microlink-api
-  IMAGE: docker-microlink-api
+  DEPLOYMENT_NAME_API: microlink-api-deployment
+  DEPLOYMENT_NAME_WEB: microlink-web-deployment
+  REPOSITORY_API: microlink-api
+  REPOSITORY_WEB: microlink-web
+  IMAGE_API: docker-microlink-api
+  IMAGE_WEB: docker-microlink-web
 
 jobs:
   setup-build-publish-deploy:
@@ -48,12 +51,6 @@ jobs:
         workload_identity_provider: 'projects/564303631352/locations/global/workloadIdentityPools/microlink-github-pool/providers/microlink-github-provider'
         service_account: 'microlink-sa@microlink-376220.iam.gserviceaccount.com'
 
-    # Alternative option - authentication via credentials json
-    # - id: 'auth'
-    #   uses: 'google-github-actions/auth@v0'
-    #   with:
-    #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
     - name: Docker configuration
       run: |-
         echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
@@ -64,30 +61,55 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-    # Build the Docker image
-    - name: Build
+    # Build the WEB Docker image
+    - name: Build web image
       run: |-
         docker build \
-          -t docker-microlink-api -f Dockerfile_api \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+          -t docker-microlink-api -f Dockerfile_web \
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_WEB/$IMAGE_WEB:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
-    # Push the Docker image to Google Artifact Registry
-    - name: Publish
+    # Build the API Docker image
+    - name: Build API image
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+        docker build \
+          -t docker-microlink-api -f Dockerfile_api \
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_API/$IMAGE_API:$GITHUB_SHA" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+          .
+
+    # Push the WEB Docker image to Google Artifact Registry
+    - name: Publish web image
+      run: |-
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_WEB/$IMAGE_WEB:$GITHUB_SHA"
+
+    # Push the API Docker image to Google Artifact Registry
+    - name: Publish api image
+      run: |-
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_API/$IMAGE_API:$GITHUB_SHA"
+
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
+    # Deploy the WEB Docker image to the GKE cluster
+    - name: Deploy WEB
       run: |-
         # replacing the image name in the k8s template
         cd k8s/api-service
-        ../../kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
+        ../../kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_WEB/IMAGE_WEB:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_WEB/$IMAGE_WEB:$GITHUB_SHA
+        ../../kustomize build | kubectl apply -f -
+        kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl get services -o wide
+    # Deploy the API Docker image to the GKE cluster
+    - name: Deploy API
+      run: |-
+        # replacing the image name in the k8s template
+        cd k8s/api-service
+        ../../kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_API/IMAGE_API:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_API/$IMAGE_API:$GITHUB_SHA
         ../../kustomize build | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
