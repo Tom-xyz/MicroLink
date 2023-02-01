@@ -7,6 +7,9 @@ WORKDIR /app
 # Expose web port
 EXPOSE 80
 
+# TODO: Enable when TLS is setup
+# EXPOSE 443
+
 # Set env stage
 ENV APP_STAGE=prod
 

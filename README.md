@@ -54,8 +54,7 @@ Note: The deployment to a live environment would require a proper domain name an
 # TODO
 * SSL Certificate and HTTPS enforcement
 * Domain name for Microlink
-* Prometheus and Grafana created and deployed
-* Experiment with an NginxIngressController to simplify routing management
-* Introduce FastAPI Models instead of using Dict request/response objects
+* Prometheus and Grafana created and deployed (GCP provides equivalents for now)
+* Experiment with an NginxIngressController to improve routing management
+* Introduce FastAPI Models instead of using Dict for request/response
 * Additional unit tests + pytest Github action
-* 
