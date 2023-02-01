@@ -6,7 +6,10 @@ spec:
   selector:
     app: microlink-api
   ports:
-    - name: api
+    - name: http
       port: 80
-      targetPort: 80
+      targetPort: 443
+    - name: https
+      port: 443
+      targetPort: 443
   type: LoadBalancer

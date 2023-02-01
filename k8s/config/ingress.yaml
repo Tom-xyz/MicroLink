@@ -12,18 +12,18 @@ spec:
           service:
             name: microlink-web
             port:
-              name: http
+              name: https
       - path: /shorten_url
         pathType: Prefix
         backend:
           service:
             name: microlink-api
             port:
-              name: http
+              name: https
       - path: /{short_url_hash}
         pathType: Prefix
         backend:
           service:
             name: microlink-api
             port:
-              name: http
+              name: https
