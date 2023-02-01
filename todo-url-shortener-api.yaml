@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
-  title: URL Shortener API
+  title: Microlink URL Shortener API
   version: 1.0.0
 servers:
-  - url: https://api.example.com/shorten
+  - url: https://api.microlink.com
 paths:
-  /create:
+  /shorten_url:
     post:
       summary: Create a new short URL
       requestBody:
