@@ -3,7 +3,6 @@ import redis.asyncio as redis
 import hashlib
 from src.config import Config
 
-# TODO: Improve this
 router = APIRouter()
 redis_client = redis.from_url(Config.REDIS_URL)
 
