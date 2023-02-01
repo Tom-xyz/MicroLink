@@ -16,4 +16,4 @@ spec:
       - name: microlink-web
         image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_WEB/IMAGE_WEB:TAG
         ports:
-        - containerPort: 443
+        - containerPort: 80

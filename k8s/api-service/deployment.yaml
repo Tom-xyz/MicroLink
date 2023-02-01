@@ -16,4 +16,4 @@ spec:
       - name: microlink-api
         image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_API/IMAGE_API:TAG
         ports:
-        - containerPort: 443
+        - containerPort: 80

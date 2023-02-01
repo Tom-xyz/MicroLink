@@ -27,3 +27,26 @@ spec:
             name: microlink-api
             port:
               name: https
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: microlink-web
+            port:
+              name: http
+      - path: /shorten_url
+        pathType: Prefix
+        backend:
+          service:
+            name: microlink-api
+            port:
+              name: http
+      - path: /*
+        pathType: Prefix
+        backend:
+          service:
+            name: microlink-api
+            port:
+              name: http
