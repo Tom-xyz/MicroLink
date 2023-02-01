@@ -123,5 +123,4 @@ jobs:
     - name: Deploy cluster config
       run: |-
         kubectl apply -f k8s/config
-        kubectl rollout status deployment/redis-deployment
         kubectl get services -o wide
