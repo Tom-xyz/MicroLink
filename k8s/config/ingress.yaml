@@ -4,7 +4,7 @@ metadata:
   name: web-and-api-ingress
 spec:
   rules:
-  - backend:
+  - http:
       paths:
       - path: /
         pathType: Prefix
