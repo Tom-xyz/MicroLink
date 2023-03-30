@@ -10,4 +10,4 @@ pytest-asyncio==0.20.*
 uvicorn==0.20.*
 kubernetes==25.3.*
 fastapi==0.89.*
-starlette==0.22.*
+starlette==0.25.*
