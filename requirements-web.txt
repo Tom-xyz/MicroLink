@@ -2,4 +2,4 @@ flask==2.2.*
 fastapi==0.89.*
 uvicorn==0.20.*
 kubernetes==25.3.*
-starlette==0.22.*
+starlette==0.25.*
