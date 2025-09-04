@@ -1,8 +1,6 @@
 # MicroLink
 URL link shortner service
 
-This is my attempt at the assignment. I didn't have any knowledge of GCP or Kubernetes prior to this. I encorporated known patterns that I have used in previous large scale projects to ensure this solution can scale to millions of concurrent requests. 
-
 There is more work to do but only so much time (see TODO). For instance the autoscaling rules are not configured. The project is also coupled in some parts to GCP which is not necessary. 
 
 WEB UI:
